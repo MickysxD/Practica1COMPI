@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package practica1compi;
+import Vista.*;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Practica1COMPI {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new Inicio();
     }
     
 }
