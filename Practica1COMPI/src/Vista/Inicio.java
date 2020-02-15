@@ -44,8 +44,19 @@ public class Inicio extends javax.swing.JFrame {
                 case 0:
                     if (caracter != '\n' && caracter != '\t' && caracter != ' ') {
                         puntero++;
-                        estado = 0;
-                    }else if (caracter == '{') {
+                    } else if (caracter == '{' || caracter == ';' || caracter == ':' || caracter == '~' || caracter == '-' || caracter == '%') {
+                        estado = 1;
+                    } else if (Character.isUpperCase(caracter)) {
+                        estado = 2;
+                    } else if (!Character.isUpperCase(caracter)) {
+                        estado = 3;
+                    } else if (caracter == '"') {
+                        estado = 3;
+                    }
+                    break;
+
+                case 1:
+                    if (caracter == '{') {
                         listaT.add(new Token(idT, caracter + "", "Llave que abre", fila, columna));
                         idT++;
                         columna++;
@@ -60,21 +71,8 @@ public class Inicio extends javax.swing.JFrame {
                         idT++;
                         columna++;
                         puntero++;
-                    } else if (caracter == '-') {
-                        estado = 1;
-                    } else if (caracter == '~') {
-                        listaT.add(new Token(idT, caracter + "", "Separacion", fila, columna));
-                        idT++;
-                        columna++;
-                        puntero++;
-                    } else if (caracter == '%') {
-                        estado = 1;
-                    } else if (Character.isUpperCase(caracter)) {
-
                     }
-                    break;
-
-                case 1:
+                    
                     break;
 
                 case 2:

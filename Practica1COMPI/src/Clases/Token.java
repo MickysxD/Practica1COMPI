@@ -12,6 +12,7 @@ package Clases;
 public class Token {
     
     int no;
+    int token;
     String lexema;
     String tipo;
     int fila;
@@ -20,8 +21,9 @@ public class Token {
     public Token() {
     }
 
-    public Token(int no, String lexema, String tipo, int fila, int columna) {
+    public Token(int no, int token, String lexema, String tipo, int fila, int columna) {
         this.no = no;
+        this.token = token;
         this.lexema = lexema;
         this.tipo = tipo;
         this.fila = fila;
@@ -34,6 +36,14 @@ public class Token {
 
     public void setNo(int no) {
         this.no = no;
+    }
+
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
     }
 
     public String getLexema() {
@@ -67,5 +77,5 @@ public class Token {
     public void setColumna(int columna) {
         this.columna = columna;
     }
-    
+
 }
