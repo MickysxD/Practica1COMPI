@@ -11,11 +11,11 @@ package Clases;
  */
 public class Error {
     
-    int no;
-    String lexema;
-    String tipo;
-    int fila;
-    int columna;
+    private int no;
+    private String lexema;
+    private String tipo;
+    private int fila;
+    private int columna;
     
     public Error() {
     }
@@ -66,6 +66,11 @@ public class Error {
 
     public void setColumna(int columna) {
         this.columna = columna;
+    }
+
+    @Override
+    public String toString() {
+        return "Error{" + "no=" + no + ", lexema=" + lexema + ", tipo=" + tipo + ", fila=" + fila + ", columna=" + columna + '}';
     }
     
 }

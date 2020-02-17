@@ -24,75 +24,19 @@ public class Inicio extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    public void analizar() {
-
-        int fila = 1;
-        int columna = 1;
-        String lexema = "";
-        char caracter = ' ';
-        int estado = 0;
-        int puntero = 0;
-        int idT = 1;
-        int idE = 1;
-
-        String[] lineas = texto.getText().split("\n");
-
-        while (fila - 1 < lineas.length && puntero < lineas[fila - 1].length()) {
-            caracter = lineas[fila - 1].charAt(puntero);
-
-            switch (estado) {
-                case 0:
-                    if (caracter != '\n' && caracter != '\t' && caracter != ' ') {
-                        puntero++;
-                    } else if (caracter == '{' || caracter == ';' || caracter == ':' || caracter == '~' || caracter == '-' || caracter == '%') {
-                        estado = 1;
-                    } else if (Character.isUpperCase(caracter)) {
-                        estado = 2;
-                    } else if (!Character.isUpperCase(caracter)) {
-                        estado = 3;
-                    } else if (caracter == '"') {
-                        estado = 3;
-                    }
-                    break;
-
-                case 1:
-                    if (caracter == '{') {
-                        listaT.add(new Token(idT, caracter + "", "Llave que abre", fila, columna));
-                        idT++;
-                        columna++;
-                        puntero++;
-                    } else if (caracter == ';') {
-                        listaT.add(new Token(idT, caracter + "", "Fin de linea", fila, columna));
-                        idT++;
-                        columna++;
-                        puntero++;
-                    } else if (caracter == ':') {
-                        listaT.add(new Token(idT, caracter + "", "Dos puntos", fila, columna));
-                        idT++;
-                        columna++;
-                        puntero++;
-                    }
-                    
-                    break;
-
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
-                case 5:
-                    break;
-
-                default:
-            }
-
+    public void ver(){
+        salida.setText("");
+        
+        for (int i = 0; i < listaT.size(); i++) {
+            salida.append(listaT.get(i).toString()+"\n");
         }
-
+        
+        for (int i = 0; i < listaE.size(); i++) {
+            salida.append(listaE.get(i).toString()+"\n");
+        }
+        
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -109,10 +53,9 @@ public class Inicio extends javax.swing.JFrame {
         salida = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        texto = new javax.swing.JTextArea();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        entrada = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -132,17 +75,19 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setText("Salida");
 
-        texto.setColumns(20);
-        texto.setRows(5);
-        jScrollPane2.setViewportView(texto);
+        entrada.setColumns(20);
+        entrada.setRows(5);
+        jScrollPane2.setViewportView(entrada);
 
-        jMenu4.setText("File");
-        jMenuBar2.add(jMenu4);
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel2.setText("Entrada");
 
-        jMenu5.setText("Edit");
-        jMenuBar2.add(jMenu5);
-
-        setJMenuBar(jMenuBar2);
+        jButton1.setText("Ver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,15 +103,24 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(654, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jButton1)))
+                .addContainerGap(558, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,6 +129,13 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listaT = new Analizadores.Lexico().analizarT(entrada.getText());
+        listaE = new Analizadores.Lexico().analizarE(entrada.getText());
+        
+        ver();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,12 +173,12 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea entrada;
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -226,6 +187,5 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea salida;
-    private javax.swing.JTextArea texto;
     // End of variables declaration//GEN-END:variables
 }

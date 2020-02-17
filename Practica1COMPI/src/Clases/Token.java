@@ -11,12 +11,12 @@ package Clases;
  */
 public class Token {
     
-    int no;
-    int token;
-    String lexema;
-    String tipo;
-    int fila;
-    int columna;
+    private int no;
+    private int token;
+    private String lexema;
+    private String tipo;
+    private int fila;
+    private int columna;
 
     public Token() {
     }
@@ -76,6 +76,11 @@ public class Token {
 
     public void setColumna(int columna) {
         this.columna = columna;
+    }
+
+    @Override
+    public String toString() {
+        return "Token{" + "no=" + no + ", token=" + token + ", lexema=" + lexema + ", tipo=" + tipo + ", fila=" + fila + ", columna=" + columna + '}';
     }
 
 }
