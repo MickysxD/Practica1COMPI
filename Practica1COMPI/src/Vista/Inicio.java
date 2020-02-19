@@ -7,6 +7,7 @@ package Vista;
 
 import java.util.ArrayList;
 import Clases.*;
+import Analizadores.*;
 
 /**
  *
@@ -16,6 +17,9 @@ public class Inicio extends javax.swing.JFrame {
 
     ArrayList<Token> listaT = new ArrayList<Token>();
     ArrayList<Clases.Error> listaE = new ArrayList<Clases.Error>();
+    ArrayList<Exprecion> expreciones = new ArrayList<Exprecion>();
+    ArrayList<Conjunto> conjuntos = new ArrayList<Conjunto>();
+    ArrayList<Lexema> lexemas = new ArrayList<Lexema>();
 
     public Inicio() {
         initComponents();
@@ -30,9 +34,13 @@ public class Inicio extends javax.swing.JFrame {
         for (int i = 0; i < listaT.size(); i++) {
             salida.append(listaT.get(i).toString()+"\n");
         }
+//        
+//        for (int i = 0; i < listaE.size(); i++) {
+//            salida.append(listaE.get(i).toString()+"\n");
+//        }
         
-        for (int i = 0; i < listaE.size(); i++) {
-            salida.append(listaE.get(i).toString()+"\n");
+        for (int i = 0; i < conjuntos.size(); i++) {
+            salida.append(conjuntos.get(i).toString()+"\n");
         }
         
     }
@@ -131,8 +139,12 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        listaT = new Analizadores.Lexico().analizarT(entrada.getText());
-        listaE = new Analizadores.Lexico().analizarE(entrada.getText());
+        Lexico analisisL = new Lexico();
+        analisisL.analizar(entrada.getText());
+        listaT = analisisL.getListaT();
+        listaE = analisisL.getListaE();
+        conjuntos = analisisL.getListaC();
+        
         
         ver();
     }//GEN-LAST:event_jButton1ActionPerformed

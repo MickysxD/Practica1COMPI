@@ -3,21 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package practica1compi;
-import Vista.*;
+package Clases;
 
 /**
  *
  * @author Micky
  */
-public class Practica1COMPI {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new Inicio();
-        
-    }
+public class ABB {
+    private NodoABB root;
+    private int id;
     
 }
