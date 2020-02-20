@@ -21,11 +21,11 @@ public class Lexico {
     private ArrayList<Lexema> listaL;
 
     public Lexico() {
-        this.listaT = new ArrayList<Token>();
-        this.listaE = new ArrayList<Clases.Error>();
-        this.listaC = new ArrayList<Conjunto>();
-        this.listaR = new ArrayList<Exprecion>();
-        this.listaL = new ArrayList<Lexema>();
+        this.listaT = new ArrayList<>();
+        this.listaE = new ArrayList<>();
+        this.listaC = new ArrayList<>();
+        this.listaR = new ArrayList<>();
+        this.listaL = new ArrayList<>();
 
     }
 
@@ -328,6 +328,7 @@ public class Lexico {
 
         if (listaE.isEmpty()) {
             conjuntos();
+            expreciones();
         }
 
     }
@@ -433,7 +434,7 @@ public class Lexico {
                         listaC.add(temp);
                     }
                     estado = 0;
-                    
+
                     break;
 
                 default:
@@ -443,6 +444,56 @@ public class Lexico {
             i++;
         }
 
+    }
+
+    public void expreciones() {
+        int estado = 0;
+        int i = 0;
+        Exprecion temp = new Exprecion();
+
+        while (i < listaT.size()) {
+            switch (estado) {
+                case 0:
+                    if (listaT.get(i).getToken() == 16 || listaT.get(i).getToken() == 18) {
+                        temp = new Exprecion();
+                        temp.setNombre(listaT.get(i));
+                        estado = 1;
+                    }else{
+                        estado = 0;
+                    }
+                    break;
+
+                case 1:
+                    if (listaT.get(i).getToken() == 12) {
+                        estado = 2;
+                    }else{
+                        estado = 0;
+                    }
+                    break;
+
+                case 2:
+                    int t = listaT.get(i).getToken();
+                    
+                    if (t == 1 || t == 2) {
+                        estado = 2;
+                    } else if (t == 5 || t == 6 || t == 7 || t == 8 || t == 9 || t == 14 || t == 18) {
+                        temp.getExp().add(listaT.get(i));
+                    } else if (t == 4) {
+                        temp.getArbol().setLista(temp.getExp());
+                        temp.getArbol().setNombre(temp.getNombre().getLexema());
+                        temp.getArbol().graficar();
+                        listaR.add(temp);
+                        estado = 0;
+                    } else {
+                        estado = 0;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            i++;
+        }
     }
 
     public ArrayList<Token> getListaT() {

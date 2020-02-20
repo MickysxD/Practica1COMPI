@@ -31,16 +31,20 @@ public class Inicio extends javax.swing.JFrame {
     public void ver(){
         salida.setText("");
         
-        for (int i = 0; i < listaT.size(); i++) {
-            salida.append(listaT.get(i).toString()+"\n");
-        }
+//        for (int i = 0; i < listaT.size(); i++) {
+//            salida.append(listaT.get(i).toString()+"\n");
+//        }
 //        
 //        for (int i = 0; i < listaE.size(); i++) {
 //            salida.append(listaE.get(i).toString()+"\n");
 //        }
         
-        for (int i = 0; i < conjuntos.size(); i++) {
-            salida.append(conjuntos.get(i).toString()+"\n");
+//        for (int i = 0; i < conjuntos.size(); i++) {
+//            salida.append(conjuntos.get(i).toString()+"\n");
+//        }
+        
+        for (int i = 0; i < expreciones.size(); i++) {
+            salida.append(expreciones.get(i).toString()+"\n");
         }
         
     }
@@ -144,7 +148,7 @@ public class Inicio extends javax.swing.JFrame {
         listaT = analisisL.getListaT();
         listaE = analisisL.getListaE();
         conjuntos = analisisL.getListaC();
-        
+        expreciones = analisisL.getListaR();
         
         ver();
     }//GEN-LAST:event_jButton1ActionPerformed

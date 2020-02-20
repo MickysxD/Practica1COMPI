@@ -14,11 +14,13 @@ import java.util.ArrayList;
 public class NodoABB {
     private NodoABB izq;
     private NodoABB der;
-    private int id;
-    private boolean anulable;
+    private int idToken;
+    private int idMetodo;
+    private int idNodo;
     private ArrayList<Integer> primeros;
     private ArrayList<Integer> ultimos;
-    private int idToken;
+    private boolean anulable;
+    private String nombre;
 
     public NodoABB() {
         this.izq = null;
@@ -44,12 +46,20 @@ public class NodoABB {
         this.der = der;
     }
 
-    public int getId() {
-        return id;
+    public int getIdMetodo() {
+        return idMetodo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdMetodo(int idMetodo) {
+        this.idMetodo = idMetodo;
+    }
+
+    public int getIdNodo() {
+        return idNodo;
+    }
+
+    public void setIdNodo(int idNodo) {
+        this.idNodo = idNodo;
     }
 
     public boolean isAnulable() {
@@ -82,6 +92,14 @@ public class NodoABB {
 
     public void setIdToken(int idToken) {
         this.idToken = idToken;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
 }
