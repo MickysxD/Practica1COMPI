@@ -1,0 +1,45 @@
+digraph grafico{
+graph [nodesep=2];
+node [shape=record]
+rankdir=TB;
+"0"[label= "<C0>| Nombre: .\nIDNodo: 0\nIDMetodo: 0\nIDToken: 5\nAnulable: false|<C1>"];
+"2"[label= "<C0>| Nombre: .\nIDNodo: 2\nIDMetodo: 0\nIDToken: 5\nAnulable: false|<C1>"];
+"3"[label= "<C0>| Nombre: +\nIDNodo: 3\nIDMetodo: 0\nIDToken: 9\nAnulable: false|<C1>"];
+"4"[label= "Nombre: digito\nIDNodo: 4\nIDMetodo: 1\nIDToken: 18\nAnulable: false"];
+"3":C0->"4";
+{rank=same; "4" }
+"2":C0->"3";
+"5"[label= "<C0>| Nombre: +\nIDNodo: 5\nIDMetodo: 0\nIDToken: 9\nAnulable: false|<C1>"];
+"6"[label= "<C0>| Nombre: .\nIDNodo: 6\nIDMetodo: 0\nIDToken: 5\nAnulable: false|<C1>"];
+"7"[label= "<C0>| Nombre: \|\nIDNodo: 7\nIDMetodo: 0\nIDToken: 6\nAnulable: false|<C1>"];
+"8"[label= "Nombre: +\nIDNodo: 8\nIDMetodo: 2\nIDToken: 14\nAnulable: false"];
+"7":C0->"8";
+"9"[label= "<C0>| Nombre: \|\nIDNodo: 9\nIDMetodo: 0\nIDToken: 6\nAnulable: false|<C1>"];
+"10"[label= "Nombre: -\nIDNodo: 10\nIDMetodo: 3\nIDToken: 14\nAnulable: false"];
+"9":C0->"10";
+"11"[label= "<C0>| Nombre: \|\nIDNodo: 11\nIDMetodo: 0\nIDToken: 6\nAnulable: false|<C1>"];
+"12"[label= "Nombre: *\nIDNodo: 12\nIDMetodo: 4\nIDToken: 14\nAnulable: false"];
+"11":C0->"12";
+"13"[label= "Nombre: /\nIDNodo: 13\nIDMetodo: 5\nIDToken: 14\nAnulable: false"];
+"11":C1->"13";
+{rank=same; "12" "13" }
+"9":C1->"11";
+{rank=same; "10" "11" }
+"7":C1->"9";
+{rank=same; "8" "9" }
+"6":C0->"7";
+"14"[label= "<C0>| Nombre: +\nIDNodo: 14\nIDMetodo: 0\nIDToken: 9\nAnulable: false|<C1>"];
+"15"[label= "Nombre: digito\nIDNodo: 15\nIDMetodo: 6\nIDToken: 18\nAnulable: false"];
+"14":C0->"15";
+{rank=same; "15" }
+"6":C1->"14";
+{rank=same; "7" "14" }
+"5":C0->"6";
+{rank=same; "6" }
+"2":C1->"5";
+{rank=same; "3" "5" }
+"0":C0->"2";
+"1"[label= "Nombre: #\nIDNodo: 1\nIDMetodo: 7\nIDToken: 0\nAnulable: false"];
+"0":C1->"1";
+{rank=same; "2" "1" }
+}

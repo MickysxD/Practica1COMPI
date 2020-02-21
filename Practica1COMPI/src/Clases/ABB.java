@@ -19,7 +19,7 @@ public class ABB {
     private NodoABB root;
     private ArrayList<Token> lista;
     private int i = 0;
-    private int id = 0;
+    private int id = 1;
     private String nombre;
 
     public ABB() {
@@ -49,6 +49,10 @@ public class ABB {
                     rellenar(raiz.getDer());
                 }
 
+                if (raiz.getIzq().isAnulable() && raiz.getDer().isAnulable()) {
+                    raiz.setAnulable(true);
+                }
+
             } else if (r == 6) {
                 if (raiz.getIzq() == null) {
                     raiz.setIzq(agregar());
@@ -60,20 +64,30 @@ public class ABB {
                     rellenar(raiz.getDer());
                 }
 
+                if (raiz.getIzq().isAnulable() || raiz.getDer().isAnulable()) {
+                    raiz.setAnulable(true);
+                }
+
             } else if (r == 7 || r == 8 || r == 9) {
                 if (raiz.getIzq() == null) {
                     raiz.setIzq(agregar());
                     rellenar(raiz.getIzq());
+                    if (r == 9 && raiz.getIzq().isAnulable()) {
+                        raiz.setAnulable(true);
+                    }if (r == 7 || r == 8) {
+                        raiz.setAnulable(true);
+                    }
                 }
 
             } else if (r == 14 || r == 18) {
-                raiz.setIdMetodo(id);
-                id++;
+                //raiz.setIdMetodo(id);
+                //id++;
 
             }
 
         } else {
-            id = 0;
+            this.root.getDer().setIdMetodo(id);
+            id = 1;
             i = 0;
         }
     }
@@ -83,6 +97,10 @@ public class ABB {
         temp.setIdToken(lista.get(i).getToken());
         temp.setNombre(lista.get(i).getLexema());
         temp.setIdNodo(i + 2);
+        if (lista.get(i).getToken() == 14 || lista.get(i).getToken() == 18) {
+            temp.setIdMetodo(id);
+            id++;
+        }
         i++;
 
         return temp;
@@ -94,18 +112,18 @@ public class ABB {
 
         if (root.getIzq() != null || root.getDer() != null) {
             if (root.getIdToken() == 6) {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: \\" + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "|<C1>\"];\n";
-            }else if (root.getIdToken() == 12) {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: \\" + root.getNombre().replace('>', '\\') + "\\nIDNodo: " + root.getIdNodo() + "|<C1>\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: \\" + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "|<C1>\"];\n";
+            } else if (root.getIdToken() == 12) {
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: \\" + root.getNombre().replace('>', '\\') + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "|<C1>\"];\n";
             } else {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: " + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "|<C1>\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: " + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "|<C1>\"];\n";
             }
             rank = "{rank=same; ";
         } else {
             if (root.getIdToken() == 6) {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"Nombre: \\" + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"Nombre: \\" + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "\"];\n";
             } else {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"Nombre: " + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"Nombre: " + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "\"];\n";
             }
         }
 
@@ -134,7 +152,7 @@ public class ABB {
         FileWriter fichero;
         PrintWriter pw;
         try {
-            fichero = new FileWriter(this.nombre + ".txt");
+            fichero = new FileWriter("Reportes/" + this.nombre + ".txt");
             pw = new PrintWriter(fichero);
 
             pw.write("digraph grafico{\ngraph [nodesep=2];\nnode [shape=record]\nrankdir=TB;\n");
@@ -150,9 +168,9 @@ public class ABB {
             pw.close();
 
             try {
-                Runtime.getRuntime().exec("dot -Tjpg" + this.nombre + ".txt -o " + this.nombre + ".jpg");
+                Runtime.getRuntime().exec("dot -Tjpg Reportes/" + this.nombre + ".txt -o Reportes/" + this.nombre + ".jpg");
                 //Runtime.getRuntime().exec("cmd /c start " + this.nombre + ".txt");
-                //Runtime.getRuntime().exec("cmd /c start " + this.nombre + ".jpg");
+                //Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + ".jpg");
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }
