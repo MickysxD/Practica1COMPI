@@ -2,31 +2,31 @@ digraph grafico{
 graph [nodesep=2];
 node [shape=record]
 rankdir=TB;
-"0"[label= "<C0>| Nombre: .\nIDNodo: 0\nIDMetodo: 0\nIDToken: 5\nAnulable: false|<C1>"];
-"2"[label= "<C0>| Nombre: .\nIDNodo: 2\nIDMetodo: 0\nIDToken: 5\nAnulable: false|<C1>"];
-"3"[label= "<C0>| Nombre: \|\nIDNodo: 3\nIDMetodo: 0\nIDToken: 6\nAnulable: false|<C1>"];
-"4"[label= "Nombre: Los \nIDNodo: 4\nIDMetodo: 1\nIDToken: 14\nAnulable: false"];
+"0"[label= "<C0> []| {false|.}|<C1>[]"];
+"2"[label= "<C0> []| {false|.}|<C1>[]"];
+"3"[label= "<C0> []| {false|\|}|<C1>[]"];
+"4"[label= "<C0> []| {false |Los |1}|<C1>[]"];
 "3":C0->"4";
-"5"[label= "Nombre: El \nIDNodo: 5\nIDMetodo: 2\nIDToken: 14\nAnulable: false"];
+"5"[label= "<C0> []| {false |El |2}|<C1>[]"];
 "3":C1->"5";
 {rank=same; "4" "5" }
 "2":C0->"3";
-"6"[label= "<C0>| Nombre: .\nIDNodo: 6\nIDMetodo: 0\nIDToken: 5\nAnulable: false|<C1>"];
-"7"[label= "<C0>| Nombre: +\nIDNodo: 7\nIDMetodo: 0\nIDToken: 9\nAnulable: false|<C1>"];
-"8"[label= "<C0>| Nombre: \|\nIDNodo: 8\nIDMetodo: 0\nIDToken: 6\nAnulable: false|<C1>"];
-"9"[label= "Nombre: vocales\nIDNodo: 9\nIDMetodo: 3\nIDToken: 18\nAnulable: false"];
+"6"[label= "<C0> []| {false|.}|<C1>[]"];
+"7"[label= "<C0> []| {false|+}|<C1>[]"];
+"8"[label= "<C0> []| {false|\|}|<C1>[]"];
+"9"[label= "<C0> []| {false |vocales|3}|<C1>[]"];
 "8":C0->"9";
-"10"[label= "Nombre: otrasLetras\nIDNodo: 10\nIDMetodo: 4\nIDToken: 18\nAnulable: false"];
+"10"[label= "<C0> []| {false |otrasLetras|4}|<C1>[]"];
 "8":C1->"10";
 {rank=same; "9" "10" }
 "7":C0->"8";
 {rank=same; "8" }
 "6":C0->"7";
-"11"[label= "<C0>| Nombre: *\nIDNodo: 11\nIDMetodo: 0\nIDToken: 8\nAnulable: true|<C1>"];
-"12"[label= "<C0>| Nombre: \|\nIDNodo: 12\nIDMetodo: 0\nIDToken: 6\nAnulable: false|<C1>"];
-"13"[label= "Nombre: abecedario\nIDNodo: 13\nIDMetodo: 5\nIDToken: 18\nAnulable: false"];
+"11"[label= "<C0> []| {true|*}|<C1>[]"];
+"12"[label= "<C0> []| {false|\|}|<C1>[]"];
+"13"[label= "<C0> []| {false |abecedario|5}|<C1>[]"];
 "12":C0->"13";
-"14"[label= "Nombre: _\nIDNodo: 14\nIDMetodo: 6\nIDToken: 14\nAnulable: false"];
+"14"[label= "<C0> []| {false |_|6}|<C1>[]"];
 "12":C1->"14";
 {rank=same; "13" "14" }
 "11":C0->"12";
@@ -36,7 +36,7 @@ rankdir=TB;
 "2":C1->"6";
 {rank=same; "3" "6" }
 "0":C0->"2";
-"1"[label= "Nombre: #\nIDNodo: 1\nIDMetodo: 7\nIDToken: 0\nAnulable: false"];
+"1"[label= "<C0> []| {false |#|7}|<C1>[]"];
 "0":C1->"1";
 {rank=same; "2" "1" }
 }

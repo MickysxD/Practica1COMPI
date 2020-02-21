@@ -51,6 +51,18 @@ public class ABB {
 
                 if (raiz.getIzq().isAnulable() && raiz.getDer().isAnulable()) {
                     raiz.setAnulable(true);
+                } 
+                
+                if (raiz.getIzq().isAnulable()) {
+                    primeros(raiz);
+                } else {
+                    raiz.setPrimeros(raiz.getIzq().getPrimeros());
+                }
+                
+                if (raiz.getDer().isAnulable()) {
+                    ultimos(raiz);
+                } else {
+                    raiz.setUltimos(raiz.getDer().getUltimos());
                 }
 
             } else if (r == 6) {
@@ -68,25 +80,29 @@ public class ABB {
                     raiz.setAnulable(true);
                 }
 
+                primeros(raiz);
+                ultimos(raiz);
+
             } else if (r == 7 || r == 8 || r == 9) {
                 if (raiz.getIzq() == null) {
                     raiz.setIzq(agregar());
                     rellenar(raiz.getIzq());
                     if (r == 9 && raiz.getIzq().isAnulable()) {
                         raiz.setAnulable(true);
-                    }if (r == 7 || r == 8) {
+                    }
+                    if (r == 7 || r == 8) {
                         raiz.setAnulable(true);
                     }
+                    raiz.setPrimeros(raiz.getIzq().getPrimeros());
+                    raiz.setUltimos(raiz.getIzq().getUltimos());
                 }
-
-            } else if (r == 14 || r == 18) {
-                //raiz.setIdMetodo(id);
-                //id++;
 
             }
 
         } else {
             this.root.getDer().setIdMetodo(id);
+            this.root.getDer().getPrimeros().add(id);
+            this.root.getDer().getUltimos().add(id);
             id = 1;
             i = 0;
         }
@@ -99,6 +115,8 @@ public class ABB {
         temp.setIdNodo(i + 2);
         if (lista.get(i).getToken() == 14 || lista.get(i).getToken() == 18) {
             temp.setIdMetodo(id);
+            temp.getPrimeros().add(id);
+            temp.getUltimos().add(id);
             id++;
         }
         i++;
@@ -106,24 +124,44 @@ public class ABB {
         return temp;
     }
 
+    public void primeros(NodoABB raiz) {
+        for (int j = 0; j < raiz.getIzq().getPrimeros().size(); j++) {
+            raiz.getPrimeros().add(raiz.getIzq().getPrimeros().get(j));
+        }
+
+        for (int j = 0; j < raiz.getDer().getPrimeros().size(); j++) {
+            raiz.getPrimeros().add(raiz.getDer().getPrimeros().get(j));
+        }
+
+    }
+
+    public void ultimos(NodoABB raiz) {
+        for (int j = 0; j < raiz.getIzq().getUltimos().size(); j++) {
+            raiz.getUltimos().add(raiz.getIzq().getUltimos().get(j));
+        }
+
+        for (int j = 0; j < raiz.getDer().getUltimos().size(); j++) {
+            raiz.getUltimos().add(raiz.getDer().getUltimos().get(j));
+        }
+
+    }
+    
     public String g(NodoABB root) {
         String retorno = "";
         String rank = "";
 
         if (root.getIzq() != null || root.getDer() != null) {
             if (root.getIdToken() == 6) {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: \\" + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "|<C1>\"];\n";
-            } else if (root.getIdToken() == 12) {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: \\" + root.getNombre().replace('>', '\\') + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "|<C1>\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0> " + root.getPrimeros().toString() + "| {" + root.isAnulable() + "|\\" + root.getNombre() + "}|<C1>" + root.getUltimos().toString() + "\"];\n";
             } else {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0>| Nombre: " + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "|<C1>\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0> " + root.getPrimeros().toString() + "| {" + root.isAnulable() + "|" + root.getNombre() + "}|<C1>" + root.getUltimos().toString() + "\"];\n";
             }
             rank = "{rank=same; ";
         } else {
             if (root.getIdToken() == 6) {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"Nombre: \\" + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0> " + root.getPrimeros().toString() + "| {\\" + root.isAnulable() + "|" + root.getNombre() + "|" + root.getIdMetodo() + "}|<C1>" + root.getUltimos().toString() + "\"];\n";
             } else {
-                retorno = "\"" + root.getIdNodo() + "\"[label= \"Nombre: " + root.getNombre() + "\\nIDNodo: " + root.getIdNodo() + "\\nIDMetodo: " + root.getIdMetodo() + "\\nIDToken: " + root.getIdToken() + "\\nAnulable: " + root.isAnulable() + "\"];\n";
+                retorno = "\"" + root.getIdNodo() + "\"[label= \"<C0> " + root.getPrimeros().toString() + "| {" + root.isAnulable() + " |" + root.getNombre() + "|" + root.getIdMetodo() + "}|<C1>" + root.getUltimos().toString() + "\"];\n";
             }
         }
 
@@ -170,7 +208,7 @@ public class ABB {
             try {
                 Runtime.getRuntime().exec("dot -Tjpg Reportes/" + this.nombre + ".txt -o Reportes/" + this.nombre + ".jpg");
                 //Runtime.getRuntime().exec("cmd /c start " + this.nombre + ".txt");
-                //Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + ".jpg");
+                Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + ".jpg");
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }
