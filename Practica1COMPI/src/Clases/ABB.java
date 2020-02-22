@@ -302,18 +302,15 @@ public class ABB {
         PrintWriter pw;
         try {
             fichero = new FileWriter("Reportes/" + this.nombre + "Siguientes.txt");
-            
-            fichero = new FileWriter("ReporteUsuarios.txt");
             pw = new PrintWriter(fichero);
 
             pw.write("digraph grafico{\ngraph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];\nnode [shape=plain]\nrankdir=LR;\n");
             pw.append("Foo [label=<\n<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">\n<tr><td><i><b>Hoja</b></i></td><td><i><b>Id</b></i></td><td><i><b>Siguientes</b></i></td></tr>\n");
-
+            
             for (int i = 0; i < hojas.size(); i++) {
-                pw.append("<tr><td><b>" + hojas.get(i).getNombre() + ".</b></td><td>" + hojas.get(i).getIdMetodo() + "</td><td>" + hojas.get(i).getSiguientes().toString() + "</td></tr>\n");
-
+                pw.append("<tr><td><b>" + hojas.get(i).getNombre() + "</b></td><td>" + hojas.get(i).getIdMetodo() + "</td><td>" + hojas.get(i).getSiguientes().toString() + "</td></tr>\n");
             }
-
+            
             pw.append("</table>>];\n}");
 
             pw.close();
