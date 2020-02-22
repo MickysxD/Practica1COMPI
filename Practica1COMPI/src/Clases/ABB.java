@@ -284,7 +284,7 @@ public class ABB {
             try {
                 Runtime.getRuntime().exec("dot -Tjpg Reportes/" + this.nombre + "Arbol.txt -o Reportes/" + this.nombre + "Arbol.jpg");
                 //Runtime.getRuntime().exec("cmd /c start " + this.nombre + ".txt");
-                Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + "Arbol.jpg");
+                //Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + "Arbol.jpg");
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }
@@ -318,7 +318,7 @@ public class ABB {
             try {
                 Runtime.getRuntime().exec("dot -Tjpg Reportes/" + this.nombre + "Siguientes.txt -o Reportes/" + this.nombre + "Siguientes.jpg");
                 //Runtime.getRuntime().exec("cmd /c start " + this.nombre + ".txt");
-                Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + "Siguientes.jpg");
+                //Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + "Siguientes.jpg");
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }

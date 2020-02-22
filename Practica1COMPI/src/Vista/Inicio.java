@@ -8,6 +8,9 @@ package Vista;
 import java.util.ArrayList;
 import Clases.*;
 import Analizadores.*;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -72,8 +75,8 @@ public class Inicio extends javax.swing.JFrame {
         entrada = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
+        vista = new javax.swing.JScrollPane();
+        lista = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -113,7 +116,11 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane3.setViewportView(tree);
+        lista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Archivo");
 
@@ -141,42 +148,43 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addComponent(jLabel2))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(157, 157, 157)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 485, Short.MAX_VALUE)))
+                                .addGap(184, 184, 184)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(vista, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(vista)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -186,7 +194,6 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        mini = new DefaultMutableTreeNode("Carpeta");
         
         Lexico analisisL = new Lexico();
         analisisL.analizar(entrada.getText());
@@ -196,23 +203,26 @@ public class Inicio extends javax.swing.JFrame {
         expreciones = analisisL.getListaR();
         
         for (int i = 0; i < expreciones.size(); i++) {
-            DefaultMutableTreeNode raiz = new DefaultMutableTreeNode(expreciones.get(i).getNombre());
-            DefaultMutableTreeNode arbol = new DefaultMutableTreeNode(expreciones.get(i).getNombre()+"Arbol");
-            DefaultMutableTreeNode siguientes = new DefaultMutableTreeNode(expreciones.get(i).getNombre()+"Siguientes");
-            DefaultMutableTreeNode transiciones = new DefaultMutableTreeNode(expreciones.get(i).getNombre()+"Transiciones");
-            DefaultMutableTreeNode afd = new DefaultMutableTreeNode(expreciones.get(i).getNombre()+"AFD");
+            lista.addItem(expreciones.get(i).getNombre().getLexema()+"Arbol");
+            lista.addItem(expreciones.get(i).getNombre().getLexema()+"Siguientes");
+            lista.addItem(expreciones.get(i).getNombre().getLexema()+"Transiciones");
+            lista.addItem(expreciones.get(i).getNombre().getLexema()+"AFD");
         
-            raiz.add(arbol);
-            raiz.add(siguientes);
-            raiz.add(transiciones);
-            raiz.add(afd);
-            
-            mini.add(raiz);
         }
         
-        tree = new JTree(mini);
+        lista.repaint();
         ver();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaActionPerformed
+        JLabel etiqueta = new JLabel();
+        ImageIcon imagen= new ImageIcon("Reportes/"+lista.getItemAt(lista.getSelectedIndex())+".jpg");
+        System.out.println("Reportes/"+lista.getItemAt(lista.getSelectedIndex())+".jpg");
+        etiqueta.setIcon (imagen);
+        
+        vista.setViewportView(etiqueta);
+        //vista.repaint();
+    }//GEN-LAST:event_listaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,8 +279,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JComboBox<String> lista;
     private javax.swing.JTextArea salida;
-    private javax.swing.JTree tree;
+    private javax.swing.JScrollPane vista;
     // End of variables declaration//GEN-END:variables
 }

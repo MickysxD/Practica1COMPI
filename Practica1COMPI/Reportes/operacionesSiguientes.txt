@@ -5,10 +5,12 @@ rankdir=LR;
 Foo [label=<
 <table border="0" cellborder="1" cellspacing="0">
 <tr><td><i><b>Hoja</b></i></td><td><i><b>Id</b></i></td><td><i><b>Siguientes</b></i></td></tr>
-<tr><td><b>a</b></td><td>1</td><td>[2, 3, 4]</td></tr>
-<tr><td><b>a</b></td><td>2</td><td>[2, 3, 4]</td></tr>
-<tr><td><b>b</b></td><td>3</td><td>[2, 3, 4]</td></tr>
-<tr><td><b>b</b></td><td>4</td><td>[5]</td></tr>
-<tr><td><b>#</b></td><td>5</td><td>[]</td></tr>
+<tr><td><b>digito</b></td><td>1</td><td>[1, 2, 3, 4, 5]</td></tr>
+<tr><td><b>+</b></td><td>2</td><td>[6]</td></tr>
+<tr><td><b>-</b></td><td>3</td><td>[6]</td></tr>
+<tr><td><b>*</b></td><td>4</td><td>[6]</td></tr>
+<tr><td><b>/</b></td><td>5</td><td>[6]</td></tr>
+<tr><td><b>digito</b></td><td>6</td><td>[2, 3, 4, 5, 6, 7]</td></tr>
+<tr><td><b>#</b></td><td>7</td><td>[]</td></tr>
 </table>>];
 }

@@ -1,0 +1,16 @@
+digraph grafico{
+graph [pad="0.5", nodesep="0.5", ranksep="2"];
+node [shape=plain]
+rankdir=LR;
+Foo [label=<
+<table border="0" cellborder="1" cellspacing="0">
+<tr><td><i><b>Hoja</b></i></td><td><i><b>Id</b></i></td><td><i><b>Siguientes</b></i></td></tr>
+<tr><td><b>Los </b></td><td>1</td><td>[3, 4]</td></tr>
+<tr><td><b>El </b></td><td>2</td><td>[3, 4]</td></tr>
+<tr><td><b>vocales</b></td><td>3</td><td>[3, 4, 5, 6, 7]</td></tr>
+<tr><td><b>otrasLetras</b></td><td>4</td><td>[3, 4, 5, 6, 7]</td></tr>
+<tr><td><b>abecedario</b></td><td>5</td><td>[5, 6, 7]</td></tr>
+<tr><td><b>_</b></td><td>6</td><td>[5, 6, 7]</td></tr>
+<tr><td><b>#</b></td><td>7</td><td>[]</td></tr>
+</table>>];
+}

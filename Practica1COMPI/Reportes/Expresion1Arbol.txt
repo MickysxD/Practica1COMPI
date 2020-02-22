@@ -1,0 +1,42 @@
+digraph grafico{
+graph [nodesep=2];
+node [shape=record]
+rankdir=TB;
+"0"[label= "<C0> [1, 2]| {false|.}|<C1>[7]"];
+"2"[label= "<C0> [1, 2]| {false|.}|<C1>[3, 4, 5, 6]"];
+"3"[label= "<C0> [1, 2]| {false|\|}|<C1>[1, 2]"];
+"4"[label= "<C0> [1]| {false |Los |1}|<C1>[1]"];
+"3":C0->"4";
+"5"[label= "<C0> [2]| {false |El |2}|<C1>[2]"];
+"3":C1->"5";
+{rank=same; "4" "5" }
+"2":C0->"3";
+"6"[label= "<C0> [3, 4]| {false|.}|<C1>[3, 4, 5, 6]"];
+"7"[label= "<C0> [3, 4]| {false|+}|<C1>[3, 4]"];
+"8"[label= "<C0> [3, 4]| {false|\|}|<C1>[3, 4]"];
+"9"[label= "<C0> [3]| {false |vocales|3}|<C1>[3]"];
+"8":C0->"9";
+"10"[label= "<C0> [4]| {false |otrasLetras|4}|<C1>[4]"];
+"8":C1->"10";
+{rank=same; "9" "10" }
+"7":C0->"8";
+{rank=same; "8" }
+"6":C0->"7";
+"11"[label= "<C0> [5, 6]| {true|*}|<C1>[5, 6]"];
+"12"[label= "<C0> [5, 6]| {false|\|}|<C1>[5, 6]"];
+"13"[label= "<C0> [5]| {false |abecedario|5}|<C1>[5]"];
+"12":C0->"13";
+"14"[label= "<C0> [6]| {false |_|6}|<C1>[6]"];
+"12":C1->"14";
+{rank=same; "13" "14" }
+"11":C0->"12";
+{rank=same; "12" }
+"6":C1->"11";
+{rank=same; "7" "11" }
+"2":C1->"6";
+{rank=same; "3" "6" }
+"0":C0->"2";
+"1"[label= "<C0> [7]| {false |#|7}|<C1>[7]"];
+"0":C1->"1";
+{rank=same; "2" "1" }
+}

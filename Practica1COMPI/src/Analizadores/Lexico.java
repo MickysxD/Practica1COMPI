@@ -458,6 +458,8 @@ public class Lexico {
                         temp = new Exprecion();
                         temp.setNombre(listaT.get(i));
                         estado = 1;
+                    }else if (listaT.get(i).getToken() == 13){
+                        i = listaT.size();
                     }else{
                         estado = 0;
                     }
