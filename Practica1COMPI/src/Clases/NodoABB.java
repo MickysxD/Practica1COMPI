@@ -6,6 +6,7 @@
 package Clases;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -19,17 +20,34 @@ public class NodoABB {
     private int idNodo;
     private ArrayList<Integer> primeros;
     private ArrayList<Integer> ultimos;
+    private ArrayList<Integer> siguientes;
     private boolean anulable;
     private String nombre;
 
     public NodoABB() {
         this.izq = null;
         this.der = null;
-        this.primeros = new ArrayList<Integer>();
-        this.ultimos = new ArrayList<Integer>();
+        this.primeros = new ArrayList<>();
+        this.ultimos = new ArrayList<>();
+        this.siguientes = new ArrayList<>();
         this.anulable = false;
     }
 
+    public void siguientes(int hoja){
+        boolean t = true;
+        for (int i = 0; i < siguientes.size(); i++) {
+            if(siguientes.get(i) == hoja){
+                t = false;
+            }
+        }
+        
+        if(t){
+            siguientes.add(hoja);
+        }
+        
+        Collections.sort(siguientes);
+    }
+    
     public NodoABB getIzq() {
         return izq;
     }
@@ -100,6 +118,14 @@ public class NodoABB {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public ArrayList<Integer> getSiguientes() {
+        return siguientes;
+    }
+
+    public void setSiguientes(ArrayList<Integer> siguientes) {
+        this.siguientes = siguientes;
     }
     
 }

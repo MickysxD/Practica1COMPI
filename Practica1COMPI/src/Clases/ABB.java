@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 
 /**
  *
@@ -18,11 +19,14 @@ public class ABB {
 
     private NodoABB root;
     private ArrayList<Token> lista;
+    private ArrayList<NodoABB> hojas;
     private int i = 0;
     private int id = 1;
     private String nombre;
 
     public ABB() {
+        this.lista = new ArrayList<>();
+        this.hojas = new ArrayList<>();
         NodoABB temp = new NodoABB();
         temp.setIdToken(5);
         temp.setIdNodo(0);
@@ -51,18 +55,25 @@ public class ABB {
 
                 if (raiz.getIzq().isAnulable() && raiz.getDer().isAnulable()) {
                     raiz.setAnulable(true);
-                } 
-                
+                }
+
                 if (raiz.getIzq().isAnulable()) {
                     primeros(raiz);
                 } else {
                     raiz.setPrimeros(raiz.getIzq().getPrimeros());
                 }
-                
+
                 if (raiz.getDer().isAnulable()) {
                     ultimos(raiz);
                 } else {
                     raiz.setUltimos(raiz.getDer().getUltimos());
+                }
+
+                //
+                for (int j = 0; j < raiz.getIzq().getUltimos().size(); j++) {
+                    for (int k = 0; k < raiz.getDer().getPrimeros().size(); k++) {
+                        siguientes(raiz.getIzq().getUltimos().get(j), raiz.getDer().getPrimeros().get(k));
+                    }
                 }
 
             } else if (r == 6) {
@@ -95,6 +106,14 @@ public class ABB {
                     }
                     raiz.setPrimeros(raiz.getIzq().getPrimeros());
                     raiz.setUltimos(raiz.getIzq().getUltimos());
+
+                    if (r == 8 || r == 9) {
+                        for (int j = 0; j < raiz.getUltimos().size(); j++) {
+                            for (int k = 0; k < raiz.getPrimeros().size(); k++) {
+                                siguientes(raiz.getUltimos().get(j), raiz.getPrimeros().get(k));
+                            }
+                        }
+                    }
                 }
 
             }
@@ -103,8 +122,10 @@ public class ABB {
             this.root.getDer().setIdMetodo(id);
             this.root.getDer().getPrimeros().add(id);
             this.root.getDer().getUltimos().add(id);
+            hojas.add(this.root.getDer());
             id = 1;
             i = 0;
+
         }
     }
 
@@ -117,6 +138,7 @@ public class ABB {
             temp.setIdMetodo(id);
             temp.getPrimeros().add(id);
             temp.getUltimos().add(id);
+            hojas.add(temp);
             id++;
         }
         i++;
@@ -126,26 +148,80 @@ public class ABB {
 
     public void primeros(NodoABB raiz) {
         for (int j = 0; j < raiz.getIzq().getPrimeros().size(); j++) {
-            raiz.getPrimeros().add(raiz.getIzq().getPrimeros().get(j));
+            boolean t = true;
+            for (int k = 0; k < raiz.getPrimeros().size(); k++) {
+
+                if (raiz.getPrimeros().get(k) == raiz.getIzq().getPrimeros().get(j)) {
+                    t = false;
+                }
+            }
+
+            if (t) {
+                raiz.getPrimeros().add(raiz.getIzq().getPrimeros().get(j));
+            }
         }
 
         for (int j = 0; j < raiz.getDer().getPrimeros().size(); j++) {
-            raiz.getPrimeros().add(raiz.getDer().getPrimeros().get(j));
+            boolean t = true;
+            for (int k = 0; k < raiz.getPrimeros().size(); k++) {
+
+                if (raiz.getPrimeros().get(k) == raiz.getDer().getPrimeros().get(j)) {
+                    t = false;
+                }
+            }
+
+            if (t) {
+                raiz.getPrimeros().add(raiz.getDer().getPrimeros().get(j));
+            }
         }
+
+        Collections.sort(raiz.getPrimeros());
 
     }
 
     public void ultimos(NodoABB raiz) {
         for (int j = 0; j < raiz.getIzq().getUltimos().size(); j++) {
-            raiz.getUltimos().add(raiz.getIzq().getUltimos().get(j));
+            boolean t = true;
+            for (int k = 0; k < raiz.getUltimos().size(); k++) {
+
+                if (raiz.getUltimos().get(k) == raiz.getIzq().getUltimos().get(j)) {
+                    t = false;
+                }
+            }
+
+            if (t) {
+                raiz.getUltimos().add(raiz.getIzq().getUltimos().get(j));
+            }
+
         }
 
         for (int j = 0; j < raiz.getDer().getUltimos().size(); j++) {
-            raiz.getUltimos().add(raiz.getDer().getUltimos().get(j));
+            boolean t = true;
+            for (int k = 0; k < raiz.getUltimos().size(); k++) {
+
+                if (raiz.getUltimos().get(k) == raiz.getDer().getUltimos().get(j)) {
+                    t = false;
+                }
+            }
+
+            if (t) {
+                raiz.getUltimos().add(raiz.getDer().getUltimos().get(j));
+            }
+        }
+
+        Collections.sort(raiz.getUltimos());
+
+    }
+
+    public void siguientes(int id, int hoja) {
+        for (int j = 0; j < hojas.size(); j++) {
+            if (hojas.get(j).getIdMetodo() == id) {
+                hojas.get(j).siguientes(hoja);
+            }
         }
 
     }
-    
+
     public String g(NodoABB root) {
         String retorno = "";
         String rank = "";
@@ -186,11 +262,11 @@ public class ABB {
 
     }
 
-    public boolean graficar() {
+    public boolean graficarArbol() {
         FileWriter fichero;
         PrintWriter pw;
         try {
-            fichero = new FileWriter("Reportes/" + this.nombre + ".txt");
+            fichero = new FileWriter("Reportes/" + this.nombre + "Arbol.txt");
             pw = new PrintWriter(fichero);
 
             pw.write("digraph grafico{\ngraph [nodesep=2];\nnode [shape=record]\nrankdir=TB;\n");
@@ -206,9 +282,9 @@ public class ABB {
             pw.close();
 
             try {
-                Runtime.getRuntime().exec("dot -Tjpg Reportes/" + this.nombre + ".txt -o Reportes/" + this.nombre + ".jpg");
+                Runtime.getRuntime().exec("dot -Tjpg Reportes/" + this.nombre + "Arbol.txt -o Reportes/" + this.nombre + "Arbol.jpg");
                 //Runtime.getRuntime().exec("cmd /c start " + this.nombre + ".txt");
-                Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + ".jpg");
+                Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + "Arbol.jpg");
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }
@@ -219,6 +295,41 @@ public class ABB {
             return false;
         }
 
+    }
+
+    public void graficarSiguientes() {
+        FileWriter fichero;
+        PrintWriter pw;
+        try {
+            fichero = new FileWriter("Reportes/" + this.nombre + "Siguientes.txt");
+            
+            fichero = new FileWriter("ReporteUsuarios.txt");
+            pw = new PrintWriter(fichero);
+
+            pw.write("digraph grafico{\ngraph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"2\"];\nnode [shape=plain]\nrankdir=LR;\n");
+            pw.append("Foo [label=<\n<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">\n<tr><td><i><b>Hoja</b></i></td><td><i><b>Id</b></i></td><td><i><b>Siguientes</b></i></td></tr>\n");
+
+            for (int i = 0; i < hojas.size(); i++) {
+                pw.append("<tr><td><b>" + hojas.get(i).getNombre() + ".</b></td><td>" + hojas.get(i).getIdMetodo() + "</td><td>" + hojas.get(i).getSiguientes().toString() + "</td></tr>\n");
+
+            }
+
+            pw.append("</table>>];\n}");
+
+            pw.close();
+
+            try {
+                Runtime.getRuntime().exec("dot -Tjpg Reportes/" + this.nombre + "Siguientes.txt -o Reportes/" + this.nombre + "Siguientes.jpg");
+                //Runtime.getRuntime().exec("cmd /c start " + this.nombre + ".txt");
+                Runtime.getRuntime().exec("cmd /c start Reportes/" + this.nombre + "Siguientes.jpg");
+            } catch (IOException ioe) {
+                System.out.println(ioe);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public NodoABB getRoot() {

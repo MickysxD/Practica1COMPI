@@ -481,7 +481,8 @@ public class Lexico {
                     } else if (t == 4) {
                         temp.getArbol().setLista(temp.getExp());
                         temp.getArbol().setNombre(temp.getNombre().getLexema());
-                        temp.getArbol().graficar();
+                        temp.getArbol().graficarArbol();
+                        temp.getArbol().graficarSiguientes();
                         listaR.add(temp);
                         estado = 0;
                     } else {
